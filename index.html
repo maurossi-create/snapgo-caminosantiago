@@ -1,0 +1,421 @@
+<!-- ========================================== -->
+<!-- BLOQUE DE CÓDIGO PARA WORDPRESS (FINAL)    -->
+<!-- ========================================== -->
+
+<!-- 1. Carga de Librerías (Tailwind, Lucide, Alpine) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<!-- 2. Configuración de Estilos -->
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    cyan: { 500: '#06b6d4', 600: '#0891b2' },
+                    stone: { 50: '#fafaf9', 100: '#f5f5f4', 800: '#292524', 900: '#1c1917' }
+                },
+                animation: { 'fade-in-up': 'fadeInUp 0.8s ease-out forwards' },
+                keyframes: {
+                    fadeInUp: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    }
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .pattern-dots {
+        background-image: radial-gradient(#000 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+
+<!-- 3. Contenido Principal -->
+<div id="landing-container" class="font-sans text-gray-800 antialiased bg-stone-50 selection:bg-cyan-400 selection:text-white" x-data="{ isMenuOpen: false }">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm top-0 left-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="text-cyan-500 w-12 h-12">
+                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 30 H80 A10 10 0 0 1 90 40 V80 A10 10 0 0 1 80 90 H20 A10 10 0 0 1 10 80 V40 A10 10 0 0 1 20 30 Z" fill="currentColor" opacity="0.1"/>
+                            <path d="M20 30 H80 A10 10 0 0 1 90 40 V80 A10 10 0 0 1 80 90 H20 A10 10 0 0 1 10 80 V40 A10 10 0 0 1 20 30 Z" stroke="currentColor" stroke-width="6"/>
+                            <path d="M35 30 V20 A10 10 0 0 1 45 10 H55 A10 10 0 0 1 65 20 V30" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M65 45 C60 40 40 40 35 50 C30 60 70 65 65 75 C60 85 40 80 35 75" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="30" cy="94" r="4" fill="currentColor"/>
+                            <circle cx="70" cy="94" r="4" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-2xl tracking-tight text-stone-900 leading-none">Snap & Go</span>
+                        <span class="font-bold text-sm text-stone-600 tracking-wide uppercase">Tours</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <!-- Enlaces corregidos: Usan href="#" y previenen la recarga con event.preventDefault() -->
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('errores').scrollIntoView({behavior: 'smooth'});" class="text-stone-600 hover:text-cyan-600 font-medium transition cursor-pointer no-underline">Errores Comunes</a>
+                    
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('solucion').scrollIntoView({behavior: 'smooth'});" class="text-stone-600 hover:text-cyan-600 font-medium transition cursor-pointer no-underline">Nuestra Solución</a>
+                    
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('contacto').scrollIntoView({behavior: 'smooth'});" class="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded-full font-bold shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 cursor-pointer no-underline">
+                        Planifica tu viaje
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="isMenuOpen = !isMenuOpen" class="text-stone-600 hover:text-stone-900 focus:outline-none">
+                        <i x-show="!isMenuOpen" data-lucide="menu"></i>
+                        <i x-show="isMenuOpen" data-lucide="x" style="display: none;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="isMenuOpen" 
+             x-transition 
+             class="md:hidden bg-white border-t border-stone-100 absolute w-full shadow-xl left-0"
+             style="display: none;">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('errores').scrollIntoView({behavior: 'smooth'}); isMenuOpen = false;" class="block w-full text-left px-3 py-3 text-stone-600 font-medium border-b border-stone-50 no-underline">Errores Comunes</a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('solucion').scrollIntoView({behavior: 'smooth'}); isMenuOpen = false;" class="block w-full text-left px-3 py-3 text-stone-600 font-medium border-b border-stone-50 no-underline">Nuestra Solución</a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('contacto').scrollIntoView({behavior: 'smooth'}); isMenuOpen = false;" class="block w-full mt-4 bg-cyan-500 text-white text-center px-3 py-3 rounded-lg font-bold no-underline">Planifica tu viaje</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative pt-24 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-cyan-100 opacity-50 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-yellow-100 opacity-50 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 animate-fade-in-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-sm font-semibold">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                        </span>
+                        Expertos en el Camino de Santiago
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight">
+                        El Camino de Santiago es increíble... <span class="text-cyan-500">si sabes cómo hacerlo.</span>
+                    </h1>
+                    <p class="text-lg text-stone-600 md:max-w-lg">
+                        Hacer el Camino por primera vez te cambia la vida, siempre que evites los errores de novato que arruinan la experiencia. En <span class="font-bold text-stone-800">Snap & Go Tours</span> nos encargamos de todo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <!-- Botón Hero 1 -->
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('contacto').scrollIntoView({behavior: 'smooth'});" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-bold hover:bg-stone-800 transition shadow-lg flex items-center justify-center gap-2 no-underline">
+                            Diseñar mi Camino
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                        <!-- Botón Hero 2 -->
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('errores').scrollIntoView({behavior: 'smooth'});" class="px-8 py-4 bg-white text-stone-700 border border-stone-200 rounded-xl font-bold hover:bg-stone-50 transition flex items-center justify-center no-underline">
+                            Ver errores típicos
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Image -->
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl rotate-1 hover:rotate-0 transition duration-500 group">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop" 
+                         alt="Peregrino mirando mapa" 
+                         class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+                        <div class="text-white">
+                            <p class="font-bold text-lg">¿Perdido o Disfrutando?</p>
+                            <p class="text-sm opacity-90">La diferencia está en la planificación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Errores Section -->
+    <section id="errores" class="py-20 bg-stone-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">No dejes que tu primer Camino se convierta en una pesadilla</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    Hemos visto a cientos de peregrinos sufrir innecesariamente por estos 4 errores clásicos.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Error 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-100 p-2 rounded-lg text-red-600 mt-1">
+                            <i data-lucide="map"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-900 mb-2">Etapas "a ojo"</h3>
+                            <p class="text-stone-600">Elegir etapas demasiado largas porque "en el mapa parece cerca". La realidad del terreno es muy diferente a Google Maps.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Error 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-100 p-2 rounded-lg text-red-600 mt-1">
+                            <i data-lucide="backpack"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-900 mb-2">Logística Fallida</h3>
+                            <p class="text-stone-600">Alojarse lejos del final de etapa y cargar con la mochila todo el día sin opción a transporte de equipaje.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Error 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-100 p-2 rounded-lg text-red-600 mt-1">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-900 mb-2">Sin Alojamiento Digno</h3>
+                            <p class="text-stone-600">No encontrar cama al llegar agotado o que lo único disponible sea un lugar donde no descansarás bien.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Error 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-100 p-2 rounded-lg text-red-600 mt-1">
+                            <i data-lucide="footprints"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-900 mb-2">Ruta Equivocada</h3>
+                            <p class="text-stone-600">Empezar en un tramo que no encaja ni con tu forma física, ni con tu tiempo disponible.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solucion Section -->
+    <section id="solucion" class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div class="absolute inset-0 bg-cyan-200 rounded-3xl transform rotate-3 scale-95 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=2073&auto=format&fit=crop" 
+                         alt="Peregrino feliz" 
+                         class="relative rounded-3xl shadow-xl z-10 w-full object-cover h-[500px]">
+                </div>
+                
+                <div class="order-1 lg:order-2 space-y-8">
+                    <div>
+                        <span class="text-cyan-500 font-bold uppercase tracking-wider text-sm">Nuestra Promesa</span>
+                        <h2 class="text-4xl font-bold text-stone-900 mt-2">Cómo lo resolvemos nosotros</h2>
+                        <p class="text-lg text-stone-600 mt-4">
+                            En <strong class="text-stone-900">Snap & Go Tours</strong> organizamos tu Camino a tu medida. Transformamos la incertidumbre en una experiencia fluida.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1 text-green-500"><i data-lucide="check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-lg">Etapas Equilibradas</h4>
+                                <p class="text-stone-600">Diseñamos la ruta basándonos en tu ritmo real, no en lo que dice un mapa genérico.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1 text-green-500"><i data-lucide="check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-lg">Alojamientos con Encanto</h4>
+                                <p class="text-stone-600">Hoteles y casas rurales seleccionados. Llegas, te duchas y descansas de verdad.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1 text-green-500"><i data-lucide="check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-lg">Transporte de Mochila</h4>
+                                <p class="text-stone-600">Camina ligero. Nosotros movemos tu equipaje de un alojamiento a otro cada día.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1 text-green-500"><i data-lucide="check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-lg">Asistencia 24/7</h4>
+                                <p class="text-stone-600">Si surge un imprevisto, estamos a una llamada de distancia para solucionarlo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="py-16 bg-stone-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-12">Lo que dicen nuestros peregrinos</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="bg-stone-800 p-8 rounded-2xl relative">
+                    <div class="text-yellow-400 flex justify-center mb-4 gap-1">
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                    </div>
+                    <p class="italic text-stone-300 mb-6">"Tenía miedo de no aguantar las etapas. Ellos me ajustaron la ruta perfectamente y fue un paseo maravilloso. ¡Repetiré!"</p>
+                    <div class="font-bold text-white">- Ana García</div>
+                    <div class="text-xs text-stone-400 uppercase tracking-wide">Camino Francés</div>
+                </div>
+                 <!-- Testimonio 2 -->
+                <div class="bg-stone-800 p-8 rounded-2xl relative transform md:-translate-y-4 shadow-xl border border-stone-700">
+                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-stone-900 text-xs font-bold px-3 py-1 rounded-full">
+                        Más reciente
+                    </div>
+                    <div class="text-yellow-400 flex justify-center mb-4 gap-1">
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                    </div>
+                    <p class="italic text-stone-300 mb-6">"Llegar al hotel y tener mi maleta esperándome es impagable. La selección de alojamientos fue de 10."</p>
+                    <div class="font-bold text-white">- Carlos Mendez</div>
+                    <div class="text-xs text-stone-400 uppercase tracking-wide">Camino del Norte</div>
+                </div>
+                 <!-- Testimonio 3 -->
+                <div class="bg-stone-800 p-8 rounded-2xl relative">
+                    <div class="text-yellow-400 flex justify-center mb-4 gap-1">
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="currentColor" class="w-4 h-4"></i>
+                    </div>
+                    <p class="italic text-stone-300 mb-6">"Primera vez haciéndolo sola y me sentí super segura con su organización y seguimiento. Gracias por todo."</p>
+                    <div class="font-bold text-white">- Lucía P.</div>
+                    <div class="text-xs text-stone-400 uppercase tracking-wide">Camino Portugués</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-24 bg-yellow-500 relative">
+        <div class="absolute inset-0 opacity-10 pattern-dots"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <div class="grid md:grid-cols-5 h-full">
+                    
+                    <div class="md:col-span-2 bg-stone-900 p-10 text-white flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Empieza tu viaje hoy</h3>
+                            <p class="text-stone-400 text-sm mb-6">Rellena el formulario y te enviaremos una propuesta de ruta y presupuesto sin compromiso.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm">
+                                <i data-lucide="mail" class="text-yellow-500"></i>
+                                <!-- CORREGIDO AQUÍ: snapandgotours.com -->
+                                <span class="font-mono">info@snapandgotours.com</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <i data-lucide="phone" class="text-yellow-500"></i>
+                                <span>+34 699 395 468</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-3 p-10">
+                        <!-- Formulario ESTÁNDAR (Sin AJAX para garantizar activación) -->
+                        <!-- CORREGIDO AQUÍ: snapandgotours.com -->
+                        <form action="https://formsubmit.co/info@snapandgotours.com" 
+                              method="POST" 
+                              class="space-y-4">
+                            
+                            <!-- Configuración FormSubmit -->
+                            <input type="hidden" name="_subject" value="Nueva solicitud de presupuesto - Snap & Go">
+                            <input type="hidden" name="_captcha" value="false">
+                            <!-- Esto asegura que el email sea validado y activado la primera vez -->
+
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Nombre</label>
+                                <input type="text" name="nombre" required class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition" placeholder="Tu nombre">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Correo Electrónico</label>
+                                <input type="email" name="email" required class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition" placeholder="tu@email.com">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-stone-700 mb-1">Ruta de interés</label>
+                                    <select name="ruta" class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-yellow-400 outline-none bg-white">
+                                        <option value="No estoy seguro">No estoy seguro</option>
+                                        <option value="Camino Francés">Camino Francés</option>
+                                        <option value="Camino del Norte">Camino del Norte</option>
+                                        <option value="Camino Portugués">Camino Portugués</option>
+                                        <option value="Camino Primitivo">Camino Primitivo</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-stone-700 mb-1">Fecha aprox.</label>
+                                    <input type="date" name="fecha" class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-yellow-400 outline-none text-stone-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Cuéntanos tus dudas</label>
+                                <textarea name="mensaje" rows="3" class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition" placeholder="¿Cuántos días tienes? ¿Viajas solo o en grupo?"></textarea>
+                            </div>
+                            <button type="submit" 
+                                    class="w-full bg-stone-900 text-white font-bold py-3 rounded-lg hover:bg-stone-800 transition transform active:scale-95">
+                                Solicitar Presupuesto Gratis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="text-cyan-500 font-bold text-xl">Snap & Go Tours</span>
+            </div>
+            <div class="text-sm">
+                &copy; <span x-text="new Date().getFullYear()"></span> Snap & Go Tours. Tu Agencia de Viajes.
+            </div>
+            <div class="flex gap-4">
+                <a href="https://instagram.com/snap.and.gotours" target="_blank" rel="noopener noreferrer" class="hover:text-white transition"><i data-lucide="instagram"></i></a>
+                <!-- CORREGIDO AQUÍ: snapandgotours.com -->
+                <a href="mailto:info@snapandgotours.com" class="hover:text-white transition"><i data-lucide="mail"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Initialization Script for Icons -->
+<script>
+    // Inicializar iconos cuando el DOM esté listo o inmediatamente si ya cargó
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+    } else {
+        lucide.createIcons();
+    }
+</script>
